@@ -1,33 +1,36 @@
-FROM php:8.3-cli-alpine
+# --- ETAPA 1: Construccion (Descarga de dependencias con Composer) ---
+FROM composer:2.8 AS builder
+WORKDIR /app
+COPY composer.json composer.lock ./
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-interaction \
+    --no-plugins \
+    --no-scripts
 
-# Install system dependencies
+# --- ETAPA 2: Produccion (Servidor PHP ultra ligero basado en Alpine) ---
+FROM php:8.3-fpm-alpine
+WORKDIR /var/www
+
+# Instalar dependencias basicas del sistema y extensiones de MySQL
 RUN apk add --no-cache \
-    git \
-    curl \
-    libpng-dev \
-    libxml2-dev \
     libzip-dev \
     zip \
     unzip \
-    postgresql-dev
+    && docker-php-ext-install pdo_mysql zip
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_pgsql bcmath zip
+# Copiar el codigo fuente del proyecto (excluyendo lo ignorado en .dockerignore)
+COPY . .
 
-# Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Copiar las dependencias optimizadas de PHP desde la Etapa 1
+COPY --from=builder /app/vendor ./vendor
 
-# Set working directory
-WORKDIR /app
+# Ajustar permisos para la cache y almacenamiento de Laravel
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# Copy application files
-COPY . /app
+# Cambiar al usuario de ejecucion segura por defecto en Alpine
+USER www-data
 
-# Install composer dependencies
-RUN composer install --no-interaction --optimize-autoloader --no-dev
-
-# Expose port 8000
-EXPOSE 8000
-
-# Start Laravel development server
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Levantar servidor HTTP de Laravel escuchando directamente y de forma obligatoria en la variable de entorno PORT
+CMD php artisan serve --host=0.0.0.0 --port=$PORT
