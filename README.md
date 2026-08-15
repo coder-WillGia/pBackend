@@ -98,6 +98,25 @@ Si prefieres levantar el proyecto usando contenedores Docker (con el Dockerfile 
 
 ---
 
+## 📝 Logs de Auditoría (Spatie Activitylog)
+
+El sistema cuenta con auditoría automática y detallada utilizando el paquete **Spatie Activitylog** para hacer trazabilidad de todas las acciones del CRUD:
+
+*   **Entidades Auditadas:** Categorías y Productos.
+*   **Eventos Capturados:** Creación (`created`), Modificación (`updated`) y Eliminación (`deleted`).
+*   **Datos Registrados:** Atributos cambiados (`attributes`) junto con los valores anteriores (`old`) y marcas de tiempo (`timestamps`).
+
+### 🔍 ¿Cómo visualizar las auditorías realizadas?
+Todos los movimientos se registran de forma automática en la tabla **`activity_log`** de la base de datos. Para consultarlos desde tu consola o cliente SQL de MySQL:
+
+```sql
+SELECT id, log_name, description, subject_type, subject_id, event, properties, created_at FROM activity_log ORDER BY id DESC;
+```
+
+*(En la base de datos de TiDB Cloud compartida ya puedes visualizar el historial completo de las creaciones, ediciones y eliminaciones de prueba que se han efectuado en la base de datos).*
+
+---
+
 ## 🔍 Direcciones Útiles
 
 * **Base URL de la API**: `http://localhost:8000/api`
