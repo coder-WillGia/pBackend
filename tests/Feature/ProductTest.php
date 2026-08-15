@@ -94,7 +94,7 @@ class ProductTest extends TestCase
             'name' => 'Producto Invalido',
             'price' => 10.0,
             'stock' => 5,
-            'category_id' => 9999, // Category that doesn't exist
+            'category_id' => '00000000-0000-0000-0000-000000000000', // Category that doesn't exist
         ]);
 
         $response->assertStatus(422)

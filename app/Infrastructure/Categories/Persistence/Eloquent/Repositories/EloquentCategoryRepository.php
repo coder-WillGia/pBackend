@@ -26,7 +26,7 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
         return CategoryModel::all()->map(fn($model) => $this->mapToDomain($model))->toArray();
     }
 
-    public function findById(int $id): ?Category
+    public function findById(string $id): ?Category
     {
         $model = CategoryModel::find($id);
         return $model ? $this->mapToDomain($model) : null;
@@ -40,7 +40,7 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
         return $this->mapToDomain($model);
     }
 
-    public function update(int $id, Category $category): ?Category
+    public function update(string $id, Category $category): ?Category
     {
         $model = CategoryModel::find($id);
         if (!$model) {
@@ -51,7 +51,7 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
         return $this->mapToDomain($model);
     }
 
-    public function delete(int $id): bool
+    public function delete(string $id): bool
     {
         $model = CategoryModel::find($id);
         if (!$model) {
@@ -60,7 +60,7 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
         return (bool) $model->delete();
     }
 
-    public function existsWithName(string $name, ?int $exceptId = null): bool
+    public function existsWithName(string $name, ?string $exceptId = null): bool
     {
         $query = CategoryModel::where('name', $name);
         if ($exceptId !== null) {
@@ -69,7 +69,7 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
         return $query->exists();
     }
 
-    public function hasAssociatedProducts(int $categoryId): bool
+    public function hasAssociatedProducts(string $categoryId): bool
     {
         $model = CategoryModel::find($categoryId);
         return $model ? $model->products()->exists() : false;

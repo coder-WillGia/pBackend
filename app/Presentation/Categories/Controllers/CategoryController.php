@@ -131,7 +131,7 @@ class CategoryController
                 in: "path",
                 description: "ID of the category",
                 required: true,
-                schema: new OA\Schema(type: "integer", example: 1)
+                schema: new OA\Schema(type: "string", format: "uuid", example: "01915645-a92c-7b44-a1ff-80c1df348981")
             )
         ],
         responses: [
@@ -145,7 +145,7 @@ class CategoryController
                         new OA\Property(
                             property: "data",
                             properties: [
-                                new OA\Property(property: "id", type: "integer", example: 1),
+                                new OA\Property(property: "id", type: "string", format: "uuid", example: "01915645-a92c-7b44-a1ff-80c1df348981"),
                                 new OA\Property(property: "name", type: "string", example: "Ropa"),
                                 new OA\Property(property: "created_at", type: "string", example: "2026-08-15 10:00:00"),
                                 new OA\Property(property: "updated_at", type: "string", example: "2026-08-15 10:00:00")
@@ -167,7 +167,7 @@ class CategoryController
             )
         ]
     )]
-    public function show(int $id, GetCategory $useCase): JsonResponse
+    public function show(string $id, GetCategory $useCase): JsonResponse
     {
         $category = $useCase->execute($id);
         if (!$category) {
@@ -190,7 +190,7 @@ class CategoryController
                 in: "path",
                 description: "ID of the category",
                 required: true,
-                schema: new OA\Schema(type: "integer", example: 1)
+                schema: new OA\Schema(type: "string", format: "uuid", example: "01915645-a92c-7b44-a1ff-80c1df348981")
             )
         ],
         requestBody: new OA\RequestBody(
@@ -213,7 +213,7 @@ class CategoryController
                         new OA\Property(
                             property: "data",
                             properties: [
-                                new OA\Property(property: "id", type: "integer", example: 1),
+                                new OA\Property(property: "id", type: "string", format: "uuid", example: "01915645-a92c-7b44-a1ff-80c1df348981"),
                                 new OA\Property(property: "name", type: "string", example: "Calzado"),
                                 new OA\Property(property: "created_at", type: "string", example: "2026-08-15 10:00:00"),
                                 new OA\Property(property: "updated_at", type: "string", example: "2026-08-15 10:10:00")
@@ -251,7 +251,7 @@ class CategoryController
             )
         ]
     )]
-    public function update(UpdateCategoryRequest $request, int $id, UpdateCategory $useCase): JsonResponse
+    public function update(UpdateCategoryRequest $request, string $id, UpdateCategory $useCase): JsonResponse
     {
         $category = $useCase->execute($id, $request->validated('name'));
         if (!$category) {
@@ -274,7 +274,7 @@ class CategoryController
                 in: "path",
                 description: "ID of the category",
                 required: true,
-                schema: new OA\Schema(type: "integer", example: 1)
+                schema: new OA\Schema(type: "string", format: "uuid", example: "01915645-a92c-7b44-a1ff-80c1df348981")
             )
         ],
         responses: [
@@ -313,7 +313,7 @@ class CategoryController
             )
         ]
     )]
-    public function destroy(int $id, DeleteCategory $useCase): JsonResponse
+    public function destroy(string $id, DeleteCategory $useCase): JsonResponse
     {
         $useCase->execute($id);
         return $this->successResponse('Categoría eliminada correctamente');

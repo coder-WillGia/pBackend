@@ -5,12 +5,12 @@ namespace App\Domain\Products\Entities;
 class Product
 {
     public function __construct(
-        public ?int $id,
+        public ?string $id,
         public string $name,
         public ?string $description,
         public float $price,
         public int $stock,
-        public int $categoryId,
+        public string $categoryId,
         public ?string $createdAt = null,
         public ?string $updatedAt = null
     ) {}

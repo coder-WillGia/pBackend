@@ -18,7 +18,7 @@ class StoreProductRequest extends FormRequest
             'description' => 'nullable|string',
             'price' => 'required|numeric|gt:0',
             'stock' => 'required|integer|min:0',
-            'category_id' => 'required|integer|exists:categories,id',
+            'category_id' => 'required|uuid|exists:categories,id',
         ];
     }
 
@@ -35,7 +35,7 @@ class StoreProductRequest extends FormRequest
             'stock.integer' => 'El stock debe ser un número entero.',
             'stock.min' => 'El stock mínimo debe ser 0.',
             'category_id.required' => 'La categoría es obligatoria.',
-            'category_id.integer' => 'La categoría debe ser un número entero.',
+            'category_id.uuid' => 'La categoría debe ser un UUID válido.',
             'category_id.exists' => 'La categoría seleccionada no existe.',
         ];
     }

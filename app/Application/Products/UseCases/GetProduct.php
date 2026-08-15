@@ -11,7 +11,7 @@ class GetProduct
         protected ProductRepositoryInterface $productRepository
     ) {}
 
-    public function execute(int $id): ?Product
+    public function execute(string $id): ?Product
     {
         return $this->productRepository->findById($id);
     }

@@ -11,15 +11,15 @@ interface CategoryRepositoryInterface
      */
     public function all(): array;
 
-    public function findById(int $id): ?Category;
+    public function findById(string $id): ?Category;
 
     public function create(Category $category): Category;
 
-    public function update(int $id, Category $category): ?Category;
+    public function update(string $id, Category $category): ?Category;
 
-    public function delete(int $id): bool;
+    public function delete(string $id): bool;
 
-    public function existsWithName(string $name, ?int $exceptId = null): bool;
+    public function existsWithName(string $name, ?string $exceptId = null): bool;
 
-    public function hasAssociatedProducts(int $categoryId): bool;
+    public function hasAssociatedProducts(string $categoryId): bool;
 }

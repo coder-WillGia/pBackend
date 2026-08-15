@@ -149,7 +149,7 @@ class ProductController
                 in: "path",
                 description: "ID of the product",
                 required: true,
-                schema: new OA\Schema(type: "integer", example: 1)
+                schema: new OA\Schema(type: "string", format: "uuid", example: "01915645-b82d-7d88-b2ef-90c1df348981")
             )
         ],
         responses: [
@@ -163,12 +163,12 @@ class ProductController
                         new OA\Property(
                             property: "data",
                             properties: [
-                                new OA\Property(property: "id", type: "integer", example: 1),
+                                new OA\Property(property: "id", type: "string", format: "uuid", example: "01915645-b82d-7d88-b2ef-90c1df348981"),
                                 new OA\Property(property: "name", type: "string", example: "Camiseta Overskull"),
                                 new OA\Property(property: "description", type: "string", example: "Camiseta negra edición limitada"),
                                 new OA\Property(property: "price", type: "number", format: "float", example: 89.90),
                                 new OA\Property(property: "stock", type: "integer", example: 50),
-                                new OA\Property(property: "category_id", type: "integer", example: 1),
+                                new OA\Property(property: "category_id", type: "string", format: "uuid", example: "01915645-a92c-7b44-a1ff-80c1df348981"),
                                 new OA\Property(property: "created_at", type: "string", example: "2026-08-15 10:00:00"),
                                 new OA\Property(property: "updated_at", type: "string", example: "2026-08-15 10:00:00")
                             ]
@@ -189,7 +189,7 @@ class ProductController
             )
         ]
     )]
-    public function show(int $id, GetProduct $useCase): JsonResponse
+    public function show(string $id, GetProduct $useCase): JsonResponse
     {
         $product = $useCase->execute($id);
         if (!$product) {
@@ -212,7 +212,7 @@ class ProductController
                 in: "path",
                 description: "ID of the product",
                 required: true,
-                schema: new OA\Schema(type: "integer", example: 1)
+                schema: new OA\Schema(type: "string", format: "uuid", example: "01915645-b82d-7d88-b2ef-90c1df348981")
             )
         ],
         requestBody: new OA\RequestBody(
@@ -224,7 +224,7 @@ class ProductController
                     new OA\Property(property: "description", type: "string", example: "Camiseta negra algodón peruano", nullable: true),
                     new OA\Property(property: "price", type: "number", format: "float", example: 99.90),
                     new OA\Property(property: "stock", type: "integer", example: 45),
-                    new OA\Property(property: "category_id", type: "integer", example: 1)
+                    new OA\Property(property: "category_id", type: "string", format: "uuid", example: "01915645-a92c-7b44-a1ff-80c1df348981")
                 ]
             )
         ),
@@ -239,12 +239,12 @@ class ProductController
                         new OA\Property(
                             property: "data",
                             properties: [
-                                new OA\Property(property: "id", type: "integer", example: 1),
+                                new OA\Property(property: "id", type: "string", format: "uuid", example: "01915645-b82d-7d88-b2ef-90c1df348981"),
                                 new OA\Property(property: "name", type: "string", example: "Camiseta Overskull Premium"),
                                 new OA\Property(property: "description", type: "string", example: "Camiseta negra algodón peruano"),
                                 new OA\Property(property: "price", type: "number", format: "float", example: 99.90),
                                 new OA\Property(property: "stock", type: "integer", example: 45),
-                                new OA\Property(property: "category_id", type: "integer", example: 1),
+                                new OA\Property(property: "category_id", type: "string", format: "uuid", example: "01915645-a92c-7b44-a1ff-80c1df348981"),
                                 new OA\Property(property: "created_at", type: "string", example: "2026-08-15 10:00:00"),
                                 new OA\Property(property: "updated_at", type: "string", example: "2026-08-15 10:10:00")
                             ]
@@ -281,7 +281,7 @@ class ProductController
             )
         ]
     )]
-    public function update(UpdateProductRequest $request, int $id, UpdateProduct $useCase): JsonResponse
+    public function update(UpdateProductRequest $request, string $id, UpdateProduct $useCase): JsonResponse
     {
         $product = $useCase->execute(
             $id,
@@ -289,7 +289,7 @@ class ProductController
             $request->validated('description'),
             (float) $request->validated('price'),
             (int) $request->validated('stock'),
-            (int) $request->validated('category_id')
+            (string) $request->validated('category_id')
         );
         if (!$product) {
             return $this->errorResponse('Recurso no encontrado', null, 404);
@@ -311,7 +311,7 @@ class ProductController
                 in: "path",
                 description: "ID of the product",
                 required: true,
-                schema: new OA\Schema(type: "integer", example: 1)
+                schema: new OA\Schema(type: "string", format: "uuid", example: "01915645-b82d-7d88-b2ef-90c1df348981")
             )
         ],
         responses: [
@@ -339,7 +339,7 @@ class ProductController
             )
         ]
     )]
-    public function destroy(int $id, DeleteProduct $useCase): JsonResponse
+    public function destroy(string $id, DeleteProduct $useCase): JsonResponse
     {
         $useCase->execute($id);
         return $this->successResponse('Producto eliminado correctamente');

@@ -10,7 +10,7 @@ class DeleteProduct
         protected ProductRepositoryInterface $productRepository
     ) {}
 
-    public function execute(int $id): bool
+    public function execute(string $id): bool
     {
         $product = $this->productRepository->findById($id);
         if (!$product) {

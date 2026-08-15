@@ -13,7 +13,7 @@ class UpdateProduct
         protected CategoryRepositoryInterface $categoryRepository
     ) {}
 
-    public function execute(int $id, string $name, ?string $description, float $price, int $stock, int $categoryId): ?Product
+    public function execute(string $id, string $name, ?string $description, float $price, int $stock, string $categoryId): ?Product
     {
         $product = $this->productRepository->findById($id);
         if (!$product) {

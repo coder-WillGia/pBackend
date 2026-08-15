@@ -11,7 +11,7 @@ class UpdateCategory
         protected CategoryRepositoryInterface $categoryRepository
     ) {}
 
-    public function execute(int $id, string $name): ?Category
+    public function execute(string $id, string $name): ?Category
     {
         if ($this->categoryRepository->existsWithName($name, $id)) {
             throw new \InvalidArgumentException("La categoría con este nombre ya existe.");

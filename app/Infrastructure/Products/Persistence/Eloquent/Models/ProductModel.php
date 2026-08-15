@@ -8,9 +8,20 @@ use App\Infrastructure\Categories\Persistence\Eloquent\Models\CategoryModel;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Support\Str;
+
 class ProductModel extends Model
 {
-    use LogsActivity;
+    use LogsActivity, HasUuids;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    public function newUniqueId(): string
+    {
+        return (string) Str::uuid7();
+    }
 
     protected $table = 'products';
 
@@ -25,7 +36,7 @@ class ProductModel extends Model
     protected $casts = [
         'price' => 'float',
         'stock' => 'integer',
-        'category_id' => 'integer',
+        'category_id' => 'string',
     ];
 
     public function category(): BelongsTo

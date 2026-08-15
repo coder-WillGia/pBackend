@@ -36,6 +36,16 @@ return Application::configure(basePath: dirname(__DIR__))
             ], 404);
         });
 
+        $exceptions->render(function (\Illuminate\Database\QueryException $e, Request $request) {
+            if ($e->getCode() === '22P02' || str_contains($e->getMessage(), 'invalid input syntax for type uuid')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Recurso no encontrado',
+                    'errors' => null
+                ], 404);
+            }
+        });
+
         $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e, Request $request) {
             return response()->json([
                 'success' => false,

@@ -8,9 +8,20 @@ use App\Infrastructure\Products\Persistence\Eloquent\Models\ProductModel;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Support\Str;
+
 class CategoryModel extends Model
 {
-    use LogsActivity;
+    use LogsActivity, HasUuids;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    public function newUniqueId(): string
+    {
+        return (string) Str::uuid7();
+    }
 
     protected $table = 'categories';
 

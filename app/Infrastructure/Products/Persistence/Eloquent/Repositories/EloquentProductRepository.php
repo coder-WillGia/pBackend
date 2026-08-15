@@ -30,7 +30,7 @@ class EloquentProductRepository implements ProductRepositoryInterface
         return ProductModel::all()->map(fn($model) => $this->mapToDomain($model))->toArray();
     }
 
-    public function findById(int $id): ?Product
+    public function findById(string $id): ?Product
     {
         $model = ProductModel::find($id);
         return $model ? $this->mapToDomain($model) : null;
@@ -48,7 +48,7 @@ class EloquentProductRepository implements ProductRepositoryInterface
         return $this->mapToDomain($model);
     }
 
-    public function update(int $id, Product $product): ?Product
+    public function update(string $id, Product $product): ?Product
     {
         $model = ProductModel::find($id);
         if (!$model) {
@@ -63,7 +63,7 @@ class EloquentProductRepository implements ProductRepositoryInterface
         return $this->mapToDomain($model);
     }
 
-    public function delete(int $id): bool
+    public function delete(string $id): bool
     {
         $model = ProductModel::find($id);
         if (!$model) {

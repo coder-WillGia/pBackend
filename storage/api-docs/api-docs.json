@@ -188,8 +188,9 @@
                         "description": "ID of the category",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "example": 1
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "01915645-a92c-7b44-a1ff-80c1df348981"
                         }
                     }
                 ],
@@ -211,8 +212,9 @@
                                         "data": {
                                             "properties": {
                                                 "id": {
-                                                    "type": "integer",
-                                                    "example": 1
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "01915645-a92c-7b44-a1ff-80c1df348981"
                                                 },
                                                 "name": {
                                                     "type": "string",
@@ -274,8 +276,9 @@
                         "description": "ID of the category",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "example": 1
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "01915645-a92c-7b44-a1ff-80c1df348981"
                         }
                     }
                 ],
@@ -317,8 +320,9 @@
                                         "data": {
                                             "properties": {
                                                 "id": {
-                                                    "type": "integer",
-                                                    "example": 1
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "01915645-a92c-7b44-a1ff-80c1df348981"
                                                 },
                                                 "name": {
                                                     "type": "string",
@@ -412,8 +416,9 @@
                         "description": "ID of the category",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "example": 1
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "01915645-a92c-7b44-a1ff-80c1df348981"
                         }
                     }
                 ],
@@ -719,8 +724,9 @@
                         "description": "ID of the product",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "example": 1
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "01915645-b82d-7d88-b2ef-90c1df348981"
                         }
                     }
                 ],
@@ -742,8 +748,9 @@
                                         "data": {
                                             "properties": {
                                                 "id": {
-                                                    "type": "integer",
-                                                    "example": 1
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "01915645-b82d-7d88-b2ef-90c1df348981"
                                                 },
                                                 "name": {
                                                     "type": "string",
@@ -763,8 +770,9 @@
                                                     "example": 50
                                                 },
                                                 "category_id": {
-                                                    "type": "integer",
-                                                    "example": 1
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "01915645-a92c-7b44-a1ff-80c1df348981"
                                                 },
                                                 "created_at": {
                                                     "type": "string",
@@ -822,8 +830,9 @@
                         "description": "ID of the product",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "example": 1
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "01915645-b82d-7d88-b2ef-90c1df348981"
                         }
                     }
                 ],
@@ -858,8 +867,9 @@
                                         "example": 45
                                     },
                                     "category_id": {
-                                        "type": "integer",
-                                        "example": 1
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "01915645-a92c-7b44-a1ff-80c1df348981"
                                     }
                                 },
                                 "type": "object"
@@ -885,8 +895,9 @@
                                         "data": {
                                             "properties": {
                                                 "id": {
-                                                    "type": "integer",
-                                                    "example": 1
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "01915645-b82d-7d88-b2ef-90c1df348981"
                                                 },
                                                 "name": {
                                                     "type": "string",
@@ -906,8 +917,9 @@
                                                     "example": 45
                                                 },
                                                 "category_id": {
-                                                    "type": "integer",
-                                                    "example": 1
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "01915645-a92c-7b44-a1ff-80c1df348981"
                                                 },
                                                 "created_at": {
                                                     "type": "string",
@@ -997,8 +1009,9 @@
                         "description": "ID of the product",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "example": 1
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "01915645-b82d-7d88-b2ef-90c1df348981"
                         }
                     }
                 ],

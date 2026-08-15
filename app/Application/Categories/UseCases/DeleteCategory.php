@@ -10,7 +10,7 @@ class DeleteCategory
         protected CategoryRepositoryInterface $categoryRepository
     ) {}
 
-    public function execute(int $id): bool
+    public function execute(string $id): bool
     {
         $category = $this->categoryRepository->findById($id);
         if (!$category) {

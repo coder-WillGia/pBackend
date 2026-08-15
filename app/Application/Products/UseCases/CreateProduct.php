@@ -13,7 +13,7 @@ class CreateProduct
         protected CategoryRepositoryInterface $categoryRepository
     ) {}
 
-    public function execute(string $name, ?string $description, float $price, int $stock, int $categoryId): Product
+    public function execute(string $name, ?string $description, float $price, int $stock, string $categoryId): Product
     {
         $category = $this->categoryRepository->findById($categoryId);
         if (!$category) {

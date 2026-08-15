@@ -11,7 +11,7 @@ class GetCategory
         protected CategoryRepositoryInterface $categoryRepository
     ) {}
 
-    public function execute(int $id): ?Category
+    public function execute(string $id): ?Category
     {
         return $this->categoryRepository->findById($id);
     }
