@@ -10,7 +10,7 @@ RUN composer install \
     --no-scripts
 
 # --- ETAPA 2: Produccion (Servidor PHP ultra ligero basado en Alpine) ---
-FROM php:8.3-fpm-alpine
+FROM php:8.4-fpm-alpine
 WORKDIR /var/www
 
 # Instalar dependencias basicas del sistema y extensiones de MySQL
