@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public $withinTransaction = false;
     /**
      * Get the migration connection name.
      */
@@ -68,3 +69,4 @@ return new class extends Migration
         $schema->dropIfExists('telescope_monitoring');
     }
 };
+
