@@ -26,3 +26,10 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Frontend related files
+/package.json
+/package-lock.json
+/vite.config.js
+/resources/css/
+/resources/js/
