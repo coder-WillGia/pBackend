@@ -1,0 +1,18 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Technical Test API Documentation",
+        "description": "Documentation for the technical test backend API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/health": {
+            "servers": [
+                {
+                    "url": "/api",
+                    "description": "Default API Server"
+                }
+            ]
+        }
+    }
+}
