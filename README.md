@@ -1,52 +1,99 @@
-# Prueba Técnica - Backend Base
+# Prueba Técnica Larael Full Stack - Backend API
 
-Este es el proyecto base para la prueba técnica, estructurado con **Arquitectura Hexagonal** en **Laravel 11+** (Laravel 13.x) y configurado para trabajar con **PostgreSQL**.
+API REST para la gestión de productos y categorías. Construida con **Laravel 11+** (arquitectura estructurada para desacoplar dominio, aplicación e infraestructura) y utilizando **MySQL** como base de datos.
 
 ---
 
-## 🛠️ Tecnologías y Configuración
-
-El proyecto cuenta con las siguientes herramientas y dependencias instaladas y configuradas:
+## 🛠️ Tecnologías y Características
 
 1. **Laravel 11+ / PHP 8.3+**
-2. **PostgreSQL** (`DB_CONNECTION=pgsql` configurado hacia la base de datos Neon).
-3. **Laravel Telescope**: Para monitorear peticiones, base de datos, logs, etc. accesible en `/telescope`.
-4. **L5-Swagger / OpenAPI**: Para la documentación de la API. Documentación autogenerada y accesible en `/api/documentation`.
-5. **Spatie Laravel Activitylog**: Para la auditoría automatizada y logs de actividades del sistema.
-6. **API y CORS**: Configuración activa en `config/cors.php` que permite el acceso cross-origin para rutas `api/*`.
-7. **Variables de entorno**: Archivos `.env` y `.env.example` sincronizados con los accesos PostgreSQL.
+2. **MySQL**: Configurado como motor de base de datos principal.
+3. **Laravel Telescope**: Para monitoreo en tiempo real de peticiones, logs y base de datos (disponible en `/telescope`).
+4. **L5-Swagger (OpenAPI 3.0)**: Documentación interactiva de la API (disponible en `/api/documentation`).
+5. **Spatie Laravel Activitylog**: Registro automático de auditorías para acciones CRUD (Crear, Actualizar, Eliminar).
+6. **Validación y Formato Estándar**: Respuestas JSON uniformes para peticiones exitosas y errores.
 
 ---
 
-## 📐 Estructura Hexagonal (`app/`)
+## ⚙️ Requisitos Previos
 
-El código de negocio está estructurado bajo patrones de Arquitectura Hexagonal en las siguientes carpetas dentro de `app/`:
-
-* **`Domain/`**: Contiene la lógica del negocio pura (Entidades de dominio, Excepciones, Reglas de negocio e Interfaces de Repositorios). *No depende de frameworks ni librerías externas.*
-* **`Application/`**: Casos de uso de la aplicación, Command/Query handlers y servicios de aplicación que orquestan el flujo de datos.
-* **`Infrastructure/`**: Adaptadores y dependencias externas. Contiene implementaciones concretas de interfaces de dominio (Repositorios Eloquent, integraciones con APIs externas, etc.).
-* **`Presentation/`**: Punto de entrada a la aplicación (Controladores API, Requests de validación, Resources de formato de salida, y documentación de OpenAPI/Swagger).
+Asegúrate de tener instalado en tu máquina local:
+* PHP 8.3 o superior
+* Composer
+* MySQL (o compatibilidad con protocolo MySQL como TiDB/MariaDB)
+* Docker y Docker Compose *(opcional, si deseas levantarlo con contenedores)*
 
 ---
 
-## 🚀 Comandos Útiles
+## 🚀 Instalación y Ejecución Local
 
-### Levantar el Servidor de Desarrollo
-```bash
-php artisan serve
-```
+Sigue estos pasos sencillos para levantar el backend en tu entorno local:
 
-### Ejecutar Migraciones
-```bash
-php artisan migrate
-```
+1. **Instalar dependencias de Composer**:
+   ```bash
+   composer install
+   ```
 
-### Regenerar Documentación de Swagger (OpenAPI)
-```bash
-php artisan l5-swagger:generate
-```
+2. **Configurar el Entorno**:
+   Copia el archivo de plantilla a tu entorno real:
+   ```bash
+   cp .env.example .env
+   ```
+   Abre el archivo `.env` recién creado y verifica que las credenciales de **MySQL** estén configuradas con tus accesos locales o en la nube:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=gateway01.ap-northeast-1.prod.aws.tidbcloud.com
+   DB_PORT=4000
+   DB_DATABASE=prueba_tecnica
+   DB_USERNAME=akejx6z3UBZP4Vh.root
+   DB_PASSWORD=Ac8MmOua0xb1uz6v
+   ```
 
-### Limpiar Caché de Configuración
-```bash
-php artisan config:clear
-```
+3. **Generar la clave de la aplicación**:
+   ```bash
+   php artisan key:generate
+   ```
+
+4. **Ejecutar las Migraciones**:
+   Crea las tablas necesarias en la base de datos:
+   ```bash
+   php artisan migrate
+   ```
+
+5. **Generar Documentación de Swagger**:
+   Genera los archivos estáticos de OpenAPI para documentar las rutas:
+   ```bash
+   php artisan l5-swagger:generate
+   ```
+
+6. **Levantar el Servidor**:
+   ```bash
+   php artisan serve
+   ```
+   La API estará accesible en `http://localhost:8000`.
+
+---
+
+## 🐳 Ejecución con Docker (Alternativa)
+
+Si prefieres levantar el proyecto usando contenedores Docker (con el Dockerfile y docker-compose configurado):
+
+1. Construye y levanta los servicios:
+   ```bash
+   docker-compose up -d --build
+   ```
+
+2. Ejecuta las migraciones y genera la documentación dentro del contenedor:
+   ```bash
+   docker-compose exec app php artisan migrate
+   docker-compose exec app php artisan l5-swagger:generate
+   ```
+   El backend estará disponible en `http://localhost:8000`.
+
+---
+
+## 🔍 Direcciones Útiles
+
+* **Base URL de la API**: `http://localhost:8000/api`
+* **Swagger/OpenAPI Docs**: `http://localhost:8000/api/documentation`
+* **Laravel Telescope Dashboard**: `http://localhost:8000/telescope`
