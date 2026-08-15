@@ -18,4 +18,12 @@ interface ProductRepositoryInterface
     public function update(string $id, Product $product): ?Product;
 
     public function delete(string $id): bool;
+
+    public function count(): int;
+
+    public function sumStock(): int;
+
+    public function latest(int $limit = 5): array;
+
+    public function paginate(int $perPage = 10, int $page = 1): array;
 }

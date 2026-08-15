@@ -10,8 +10,11 @@ class GetCategories
         protected CategoryRepositoryInterface $categoryRepository
     ) {}
 
-    public function execute(): array
+    public function execute(?int $perPage = null, int $page = 1): array
     {
+        if ($perPage !== null) {
+            return $this->categoryRepository->paginate($perPage, $page);
+        }
         return $this->categoryRepository->all();
     }
 }

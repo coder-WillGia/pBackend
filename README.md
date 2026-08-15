@@ -35,11 +35,14 @@ Sigue estos pasos sencillos para levantar el backend en tu entorno local:
    ```
 
 2. **Configurar el Entorno**:
-   Copia el archivo de plantilla a tu entorno real:
+   Copia el archivo de plantilla a tu entorno real (el archivo `.env` contiene credenciales locales y no debe subirse a repositorios públicos de Git):
    ```bash
    cp .env.example .env
    ```
-   Abre el archivo `.env` recién creado y verifica que las credenciales de **MySQL** estén configuradas con tus accesos locales o en la nube:
+   
+   ### 🛢️ Conexión a Base de Datos de Prueba (TiDB Cloud)
+   Para facilitar la evaluación inmediata de esta prueba técnica, **se incluye una base de datos remota de MySQL (TiDB Cloud)** ya migrada y sembrada con datos de prueba. Puedes usar las siguientes variables de conexión directamente en tu `.env` para conectarte y validar la efectividad del proyecto al instante:
+
    ```env
    DB_CONNECTION=mysql
    DB_HOST=gateway01.ap-northeast-1.prod.aws.tidbcloud.com
@@ -48,6 +51,9 @@ Sigue estos pasos sencillos para levantar el backend en tu entorno local:
    DB_USERNAME=akejx6z3UBZP4Vh.root
    DB_PASSWORD=Ac8MmOua0xb1uz6v
    ```
+
+   > [!NOTE]  
+   > Esta base de datos ya tiene toda la estructura creada y datos de prueba precargados. Al configurar estas credenciales, no necesitas levantar un servidor local de base de datos ni correr migraciones adicionales.
 
 3. **Generar la clave de la aplicación**:
    ```bash

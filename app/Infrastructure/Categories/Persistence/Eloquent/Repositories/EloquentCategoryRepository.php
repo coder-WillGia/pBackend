@@ -74,4 +74,24 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
         $model = CategoryModel::find($categoryId);
         return $model ? $model->products()->exists() : false;
     }
+
+    public function count(): int
+    {
+        return CategoryModel::count();
+    }
+
+    public function paginate(int $perPage = 10, int $page = 1): array
+    {
+        $paginator = CategoryModel::paginate($perPage, ['*'], 'page', $page);
+        
+        return [
+            'items' => collect($paginator->items())->map(fn($model) => $this->mapToDomain($model))->toArray(),
+            'meta' => [
+                'total' => $paginator->total(),
+                'per_page' => $paginator->perPage(),
+                'current_page' => $paginator->currentPage(),
+                'last_page' => $paginator->lastPage(),
+            ]
+        ];
+    }
 }

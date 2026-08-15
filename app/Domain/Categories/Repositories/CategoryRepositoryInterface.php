@@ -22,4 +22,8 @@ interface CategoryRepositoryInterface
     public function existsWithName(string $name, ?string $exceptId = null): bool;
 
     public function hasAssociatedProducts(string $categoryId): bool;
+
+    public function count(): int;
+
+    public function paginate(int $perPage = 10, int $page = 1): array;
 }

@@ -71,4 +71,38 @@ class EloquentProductRepository implements ProductRepositoryInterface
         }
         return (bool) $model->delete();
     }
+
+    public function count(): int
+    {
+        return ProductModel::count();
+    }
+
+    public function sumStock(): int
+    {
+        return (int) ProductModel::sum('stock');
+    }
+
+    public function latest(int $limit = 5): array
+    {
+        return ProductModel::orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get()
+            ->map(fn($model) => $this->mapToDomain($model))
+            ->toArray();
+    }
+
+    public function paginate(int $perPage = 10, int $page = 1): array
+    {
+        $paginator = ProductModel::paginate($perPage, ['*'], 'page', $page);
+        
+        return [
+            'items' => collect($paginator->items())->map(fn($model) => $this->mapToDomain($model))->toArray(),
+            'meta' => [
+                'total' => $paginator->total(),
+                'per_page' => $paginator->perPage(),
+                'current_page' => $paginator->currentPage(),
+                'last_page' => $paginator->lastPage(),
+            ]
+        ];
+    }
 }

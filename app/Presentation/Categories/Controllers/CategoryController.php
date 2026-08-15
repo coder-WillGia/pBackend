@@ -49,12 +49,26 @@ class CategoryController
             )
         ]
     )]
-    public function index(GetCategories $useCase): JsonResponse
+    public function index(\Illuminate\Http\Request $request, GetCategories $useCase): JsonResponse
     {
-        $categories = $useCase->execute();
+        $perPage = $request->query('per_page') ? (int) $request->query('per_page') : null;
+        $page = (int) $request->query('page', 1);
+
+        $result = $useCase->execute($perPage, $page);
+
+        if ($perPage !== null) {
+            return $this->successResponse(
+                'Categorías obtenidas correctamente',
+                [
+                    'items' => CategoryResource::collection($result['items']),
+                    'meta' => $result['meta']
+                ]
+            );
+        }
+
         return $this->successResponse(
             'Categorías obtenidas correctamente',
-            CategoryResource::collection($categories)
+            CategoryResource::collection($result)
         );
     }
 

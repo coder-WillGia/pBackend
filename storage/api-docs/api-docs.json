@@ -496,6 +496,98 @@
                 }
             }
         },
+        "/dashboard/stats": {
+            "get": {
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get dashboard statistics",
+                "description": "Returns summary counts and the latest products",
+                "operationId": "3c715311628460ef5e74a07e78e0fd9d",
+                "responses": {
+                    "200": {
+                        "description": "Stats obtained successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Estadísticas del dashboard obtenidas correctamente"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "total_categories": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "total_products": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "total_stock": {
+                                                    "type": "integer",
+                                                    "example": 150
+                                                },
+                                                "latest_products": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string",
+                                                                "format": "uuid",
+                                                                "example": "01915645-b82d-7d88-b2ef-90c1df348981"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Camiseta Overskull"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "Camiseta negra edición limitada"
+                                                            },
+                                                            "price": {
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": 89.9
+                                                            },
+                                                            "stock": {
+                                                                "type": "integer",
+                                                                "example": 50
+                                                            },
+                                                            "category_id": {
+                                                                "type": "string",
+                                                                "format": "uuid",
+                                                                "example": "01915645-a92c-7b44-a1ff-80c1df348981"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "example": "2026-08-15 10:00:00"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "example": "2026-08-15 10:00:00"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/products": {
             "get": {
                 "tags": [
@@ -1071,6 +1163,10 @@
         {
             "name": "Categories",
             "description": "Operations related to Categories"
+        },
+        {
+            "name": "Dashboard",
+            "description": "Dashboard statistics"
         },
         {
             "name": "Products",

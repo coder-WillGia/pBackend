@@ -10,8 +10,11 @@ class GetProducts
         protected ProductRepositoryInterface $productRepository
     ) {}
 
-    public function execute(): array
+    public function execute(?int $perPage = null, int $page = 1): array
     {
+        if ($perPage !== null) {
+            return $this->productRepository->paginate($perPage, $page);
+        }
         return $this->productRepository->all();
     }
 }

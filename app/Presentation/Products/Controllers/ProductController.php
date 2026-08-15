@@ -53,12 +53,26 @@ class ProductController
             )
         ]
     )]
-    public function index(GetProducts $useCase): JsonResponse
+    public function index(\Illuminate\Http\Request $request, GetProducts $useCase): JsonResponse
     {
-        $products = $useCase->execute();
+        $perPage = $request->query('per_page') ? (int) $request->query('per_page') : null;
+        $page = (int) $request->query('page', 1);
+
+        $result = $useCase->execute($perPage, $page);
+
+        if ($perPage !== null) {
+            return $this->successResponse(
+                'Productos obtenidos correctamente',
+                [
+                    'items' => ProductResource::collection($result['items']),
+                    'meta' => $result['meta']
+                ]
+            );
+        }
+
         return $this->successResponse(
             'Productos obtenidos correctamente',
-            ProductResource::collection($products)
+            ProductResource::collection($result)
         );
     }
 
@@ -129,7 +143,7 @@ class ProductController
             $request->validated('description'),
             (float) $request->validated('price'),
             (int) $request->validated('stock'),
-            (int) $request->validated('category_id')
+            (string) $request->validated('category_id')
         );
         return $this->successResponse(
             'Producto creado correctamente',
