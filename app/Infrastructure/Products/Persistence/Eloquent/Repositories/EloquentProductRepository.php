@@ -5,6 +5,7 @@ namespace App\Infrastructure\Products\Persistence\Eloquent\Repositories;
 use App\Domain\Products\Entities\Product;
 use App\Domain\Products\Repositories\ProductRepositoryInterface;
 use App\Infrastructure\Products\Persistence\Eloquent\Models\ProductModel;
+use Illuminate\Support\Facades\DB;
 
 class EloquentProductRepository implements ProductRepositoryInterface
 {
@@ -82,12 +83,39 @@ class EloquentProductRepository implements ProductRepositoryInterface
         return (int) ProductModel::sum('stock');
     }
 
+    public function getDashboardMetrics(): array
+    {
+        $result = DB::selectOne("
+            SELECT 
+                (SELECT COUNT(*) FROM categories) AS total_categories,
+                (SELECT COUNT(*) FROM products)   AS total_products,
+                (SELECT COALESCE(SUM(stock), 0) FROM products) AS total_stock
+        ");
+
+        return [
+            'total_categories' => (int) ($result->total_categories ?? 0),
+            'total_products'   => (int) ($result->total_products ?? 0),
+            'total_stock'      => (int) ($result->total_stock ?? 0),
+        ];
+    }
+
     public function latest(int $limit = 5): array
     {
-        return ProductModel::orderBy('created_at', 'desc')
+        return DB::table('products')
+            ->select(['id', 'name', 'description', 'price', 'stock', 'category_id', 'created_at', 'updated_at'])
+            ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get()
-            ->map(fn($model) => $this->mapToDomain($model))
+            ->map(fn($row) => new Product(
+                id: (string) $row->id,
+                name: $row->name,
+                description: $row->description,
+                price: (float) $row->price,
+                stock: (int) $row->stock,
+                categoryId: (string) $row->category_id,
+                createdAt: $row->created_at ? (string) $row->created_at : null,
+                updatedAt: $row->updated_at ? (string) $row->updated_at : null
+            ))
             ->toArray();
     }
 

@@ -4,14 +4,12 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "${PORT:-8000}:${PORT:-8000}"
     volumes:
       - .:/app
       - /app/vendor
-    environment:
-      - APP_ENV=local
-      - APP_DEBUG=true
-      - PORT=8000
-
     env_file:
       - .env
+
+
+

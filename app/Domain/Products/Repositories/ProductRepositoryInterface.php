@@ -23,6 +23,8 @@ interface ProductRepositoryInterface
 
     public function sumStock(): int;
 
+    public function getDashboardMetrics(): array;
+
     public function latest(int $limit = 5): array;
 
     public function paginate(int $perPage = 10, int $page = 1): array;

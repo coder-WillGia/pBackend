@@ -14,11 +14,13 @@ class GetDashboardStats
 
     public function execute(int $limit = 5): array
     {
+        $metrics = $this->productRepository->getDashboardMetrics();
+
         return [
-            'total_categories' => $this->categoryRepository->count(),
-            'total_products' => $this->productRepository->count(),
-            'total_stock' => $this->productRepository->sumStock(),
-            'latest_products' => $this->productRepository->latest($limit),
+            'total_categories' => $metrics['total_categories'],
+            'total_products'   => $metrics['total_products'],
+            'total_stock'      => $metrics['total_stock'],
+            'latest_products'  => $this->productRepository->latest($limit),
         ];
     }
 }
